@@ -150,12 +150,17 @@ function install_fabric_chaincode {
 
     echo "Installing chaincode '$CC_PATH' with id '$CC_ID' and version '$CC_VERSION'..."
     
-    CHAINCODE_FILES=$(find ${CC_PATH} -type f ! -name "*test*")
-    CHAINCODE_FILE_OPTS=""
-    for CHAINCODE_FILE in ${CHAINCODE_FILES}
-    do
-        CHAINCODE_FILE_OPTS="${CHAINCODE_FILE_OPTS} -F files[]=@${CHAINCODE_FILE}"
-    done
+    #CHAINCODE_FILES=$(find ${CC_PATH} -type f ! -name "*test*")
+    #CHAINCODE_FILE_OPTS=""
+    #for CHAINCODE_FILE in ${CHAINCODE_FILES}
+    #do
+    #    CHAINCODE_FILE_OPTS="${CHAINCODE_FILE_OPTS} -F files[]=@${CHAINCODE_FILE}"
+    #done
+
+    cd $CC_PATH
+    zip -r chaincode.zip .
+    cd -
+    CHAINCODE_FILE_OPTS="-F files[]=@${CC_PATH}/chaincode.zip"
 
     OUTPUT=$(do_curl \
         -X POST \

@@ -283,6 +283,7 @@ function deploy_fabric_chaincode {
     echo "Parsing deployment configuration:"
     cat "$DEPLOY_CONFIG"
 
+    CC_VERSION="$(date '+%Y%m%d%H%M%S')-${BUILD_NUMBER}"
     for org in $(jq -r "to_entries[] | .key" "$DEPLOY_CONFIG")
     do
         echo "Targeting org '$org'..."
@@ -299,7 +300,6 @@ function deploy_fabric_chaincode {
 
             # TODO: Integrate with configuration
             CC_ID="${CC_NAME}"
-            CC_VERSION="$(date '+%Y%m%d%H%M%S')-${BUILD_NUMBER}"
 
             if $CC_INSTALL
             then

@@ -225,6 +225,9 @@ EOF
 
     echo "Instantiating fabric contract with id '$CC_ID' version '$CC_VERSION' and chaincode type '$CC_TYPE' on channel '$CHANNEL' with arguments '$INIT_ARGS'..."
 
+    echo "Contents of request.json:"
+    cat request.json
+
     OUTPUT=$(do_curl \
         -X POST \
         -H 'Content-Type: application/json' \
